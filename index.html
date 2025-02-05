@@ -45,19 +45,22 @@
       //---------------------------------------------------------------------//
 
       function handleClick() {
-        const fromCurrency = fromCurrencyInput.value;
+        const fromCurrency = amountInput.value;
         const toCurrency = toCurrencyInput.value;
         const amount = parseFloat(amountInput);
+        let convertedAmount;
+        Calc();
 
+        result = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
 
-        
         if (isNaN(amount) || amount <= 0) {
           result.innerHTML = "Ievadi derīgu daudzumu";
         }
+      }
 
+      //---------------------------------------------------------------------//
 
-
-        let convertedAmount;
+      function Calc() {
         switch (fromCurrency) {
           case "USD":
             convertedAmount =
@@ -75,8 +78,8 @@
           default:
             break;
         }
-      //---------------------------------------------------------------------//
-        result = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
+
+        //---------------------------------------------------------------------//
       }
     </script>
   </body>
