@@ -30,56 +30,74 @@
 
       <button id="convert-btn">Konvertēt</button>
       <p id="result"></p>
+      <p id="testing"></p>
     </div>
 
     <!-- ---------------------------java start----------------------------- -->
 
     <script>
       const toCurrencyInput = document.getElementById("to-currency");
+      const fromCurrencyInput = document.getElementById("from-currency");
       const btn = document.getElementById("convert-btn");
       const amountInput = document.getElementById("amount");
       const result = document.getElementById("result");
+      const tester = document.getElementById("testing");
 
       btn.addEventListener("click", handleClick);
 
       //---------------------------------------------------------------------//
 
       function handleClick() {
-        const fromCurrency = amountInput.value;
+        const fromCurrency = fromCurrencyInput.value;
         const toCurrency = toCurrencyInput.value;
-        const amount = parseFloat(amountInput);
-        let convertedAmount;
+        const amount = parseInt(amountInput.value);
         Calc();
+        //--------------------------------------------//
+        function Calc() {
+          let convertedAmount;
+          switch (toCurrency) {
+            case "USD":
+              convertedAmount =
+                amount * { EUR: 0.85, GBP: 0.75, USD: 1 }[toCurrency];
+              break;
+            case "EUR":
+              convertedAmount =
+                amount * { USD: 1.18, GBP: 0.88, EUR: 1 }[toCurrency];
+              break;
+            case "GBP":
+              convertedAmount =
+                amount * { USD: 1.33, EUR: 1.14, GBP: 1 }[toCurrency];
+              break;
+            default:
+              break;
+          }
 
-        result = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
-
-        if (isNaN(amount) || amount <= 0) {
-          result.innerHTML = "Ievadi derīgu daudzumu";
-        }
-      }
-
-      //---------------------------------------------------------------------//
-
-      function Calc() {
-        switch (fromCurrency) {
-          case "USD":
-            convertedAmount =
-              amount * { EUR: 0.85, GBP: 0.75, USD: 1 }[toCurrency];
-            break;
-          case "EUR":
-            convertedAmount =
-              amount * { USD: 1.18, GBP: 0.88, EUR: 1 }[toCurrency];
-            break;
-          case "GBP":
-            convertedAmount =
-              amount * { USD: 1.33, EUR: 1.14, GBP: 1 }[toCurrency];
-            break;
-
-          default:
-            break;
+          if (isNaN(amount) || amount <= 0) {
+            result.innerHTML = "Ievadi derīgu daudzumu";
+          }
+          result.innerHTML = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
         }
 
-        //---------------------------------------------------------------------//
+        //-------------------------history?-----------------------------------//
+
+        //attempt 1, figuring things out -->
+
+        //let answer = [result];
+        //btn.onclick(answer.push(result));
+
+        //attempt 2, remembering push command
+
+        //let test = [];
+        //const rayTest = test.push(parseFloat.result);
+        //tester.innerHTML = `${test}`;
+
+        //attempt 3
+
+        //let test = [];
+        //const rayTest = test.push("testing")    this works
+        //let resultText = String(result);
+        ///const rayTest = test.push(result);   works, but in the wrong way
+        //tester.innerHTML = test;
       }
     </script>
   </body>
