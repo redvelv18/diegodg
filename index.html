@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Calculator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Valūtas kalkulātors</h1>
+      <label for="amount">Daudzums:</label>
+      <input type="number" id="amount" placeholder="Ievadi daudzumu" />
+
+      <!-- ---------------------------------------------------------------- -->
+
+      <br />
+      <label for="from-currency">No:</label>
+      <select id="from-currency">
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option>
+      </select>
+
+      <label for="to-currency">Uz:</label>
+      <select id="to-currency">
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option></select
+      ><br />
+
+      <button id="convert-btn">Konvertēt</button>
+      <p id="result"></p>
+    </div>
+
+    <!-- ---------------------------java start----------------------------- -->
+
+    <script>
+      const toCurrencyInput = document.getElementById("to-currency");
+      const btn = document.getElementById("convert-btn");
+      const amountInput = document.getElementById("amount");
+      const result = document.getElementById("result");
+
+      btn.addEventListener("click", handleClick);
+
+      //---------------------------------------------------------------------//
+
+      function handleClick() {
+        const fromCurrency = fromCurrencyInput.value;
+        const toCurrency = toCurrencyInput.value;
+        const amount = parseFloat(amountInput);
+
+
+        
+        if (isNaN(amount) || amount <= 0) {
+          result.innerHTML = "Ievadi derīgu daudzumu";
+        }
+
+
+
+        let convertedAmount;
+        switch (fromCurrency) {
+          case "USD":
+            convertedAmount =
+              amount * { EUR: 0.85, GBP: 0.75, USD: 1 }[toCurrency];
+            break;
+          case "EUR":
+            convertedAmount =
+              amount * { USD: 1.18, GBP: 0.88, EUR: 1 }[toCurrency];
+            break;
+          case "GBP":
+            convertedAmount =
+              amount * { USD: 1.33, EUR: 1.14, GBP: 1 }[toCurrency];
+            break;
+
+          default:
+            break;
+        }
+      //---------------------------------------------------------------------//
+        result = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
+      }
+    </script>
+  </body>
+</html>
